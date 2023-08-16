@@ -1,3 +1,4 @@
+// App.vue
 <template>
   <div>
     <button @click="shuffleCards">洗牌</button>
@@ -11,11 +12,11 @@
         {{ card }}
       </div>
     </div>
-    <div v-if="dialogVisible">
+    <dialog v-if="dialogVisible">
       <p>卡片号码: {{ selectedCard }}</p>
-      <button @click="incrementCard">+</button>
+      <button @click="incrementCard">[+]</button>
       <button @click="closeDialog">取消</button>
-    </div>
+    </dialog>
   </div>
 </template>
 

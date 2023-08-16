@@ -1,3 +1,4 @@
+<!-- // App.vue
 <template>
   <div>
     <button @click="shuffleCards">洗牌</button>
@@ -77,4 +78,4 @@ dialog {
   background-color: white;
   z-index: 9999;
 }
-</style>
+</style> -->

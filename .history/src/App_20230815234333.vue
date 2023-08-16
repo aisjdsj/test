@@ -1,3 +1,4 @@
+<!-- // App.vue
 <template>
   <div>
     <button @click="shuffleCards">洗牌</button>
@@ -76,5 +77,77 @@ dialog {
   transform: translate(-50%, -50%);
   background-color: white;
   z-index: 9999;
+}
+</style> -->
+<template>
+  <div>
+    <button @click="shuffleCards">洗牌</button>
+    <div class="card-container">
+      <div
+        v-for="(card, index) in shuffledCards"
+        :key="card.id"
+        class="card"
+        @click="openDialog(card)"
+      >
+        {{ card.number }}
+      </div>
+    </div>
+    <Dialog :card="selectedCard" @updateNumber="updateNumber" />
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { useStore } from 'vuex';
+import Dialog from './Dialog.vue';
+
+export default defineComponent({
+  components: {
+    Dialog,
+  },
+  data() {
+    return {
+      selectedCard: null as Card | null,
+    };
+  },
+  computed: {
+    shuffledCards() {
+      return this.$store.state.cards.slice().sort(() => Math.random() - 0.5);
+    },
+  },
+  methods: {
+    shuffleCards() {
+      this.$store.commit('shuffleCards');
+    },
+    openDialog(card: Card) {
+      this.selectedCard = card;
+    },
+    updateNumber(newNumber: number) {
+      if (this.selectedCard) {
+        this.$store.commit('updateCardNumber', { cardId: this.selectedCard.id, newNumber });
+        this.selectedCard = null;
+      }
+    },
+  },
+});
+</script>
+
+<style scoped>
+.card-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.card {
+  width: 100px;
+  height: 150px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  margin: 0 10px;
 }
 </style>

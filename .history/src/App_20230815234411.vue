@@ -1,3 +1,4 @@
+// App.vue
 <template>
   <div>
     <button @click="shuffleCards">洗牌</button>
